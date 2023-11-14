@@ -29,6 +29,7 @@ class Post(models.Model):
     publish_date = models.DateTimeField(default=timezone.now)
     # publish_date2 = models.DateTimeField(auto_now=True)
     tags = TaggableManager()
+    image = models.ImageField(upload_to='post')
 
 
 
