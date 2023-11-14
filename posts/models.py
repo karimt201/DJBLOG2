@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from taggit.managers import TaggableManager
 
 '''
         1 : html widget
@@ -27,6 +28,7 @@ class Post(models.Model):
     draft = models.BooleanField(default=True)
     publish_date = models.DateTimeField(default=timezone.now)
     # publish_date2 = models.DateTimeField(auto_now=True)
+    tags = TaggableManager()
 
 
 
