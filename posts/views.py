@@ -10,8 +10,6 @@ def post_list (request):
         'karim' : data
     }
 
-
-
     return render(request,'posts/post_list.html',context)
 
 
@@ -22,6 +20,22 @@ def post_details(request,post_id):
         'ali' : data
     }
 
-
-
     return render(request,'posts/post_details.html',context)
+
+
+
+'''
+def post_list (request):
+    data = Post.objects.all()                                   : query
+    context = {'karim' : data}                                  : context
+    return render(request,'posts/post_list.html',context)       : template
+'''
+
+from django.views.generic import ListView , DetailView
+
+class postlist(ListView):                   #context : model_list , object_list
+    model = Post                            #temolate model_action : post_list
+
+
+class postdetail(DetailView):
+    model = Post
