@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from .models import Post
+from .forms import PostForm
 
 
 
@@ -22,7 +23,21 @@ def post_details(request,post_id):
 
     return render(request,'posts/post_details.html',context)
 
+def create_post(request):
+    form = PostForm()
 
+    if request.method =='POST':
+        form = PostForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('/posts/')
+
+    else :
+        form = PostForm()
+
+
+    return render(request,'posts/new.html',{'form' : form })
+    
 
 '''
 def post_list (request):
@@ -39,3 +54,7 @@ class postlist(ListView):                   #context : model_list , object_list
 
 class postdetail(DetailView):
     model = Post
+
+
+
+    
