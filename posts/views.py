@@ -67,7 +67,7 @@ def post_list (request):
     return render(request,'posts/post_list.html',context)       : template
 '''
 
-from django.views.generic import ListView , DetailView
+from django.views.generic import ListView , DetailView , CreateView , UpdateView
 
 class postlist(ListView):                   #context : model_list , object_list
     model = Post                            #temolate model_action : post_list
@@ -76,6 +76,11 @@ class postlist(ListView):                   #context : model_list , object_list
 class postdetail(DetailView):
     model = Post
 
+
+class AddPost(CreateView) :
+    model = Post
+    fields = '__all__'
+    success_url = '/posts/'
 
 
     
