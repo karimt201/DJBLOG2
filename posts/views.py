@@ -1,11 +1,12 @@
 from django.shortcuts import render , redirect
-from .models import Post
+from .models import Post , coment
 from .forms import PostForm
 
 
 
 def post_list (request):
     data = Post.objects.all()   #db : all posts --> list [1,2]
+    
 
     context = {
         'object_list' : data
@@ -16,9 +17,10 @@ def post_list (request):
 
 def post_details(request,pk):
     data = Post.objects.get(id=pk)   #db : all posts --> list [1,2]
-
+    comments = coment.objects.filter(post=data)
     context = {
-        'post' : data
+        'post' : data ,
+        'comments' : comments
     }
 
     return render(request,'posts/post_detail.html',context)
