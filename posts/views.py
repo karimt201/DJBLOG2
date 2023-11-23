@@ -8,20 +8,20 @@ def post_list (request):
     data = Post.objects.all()   #db : all posts --> list [1,2]
 
     context = {
-        'karim' : data
+        'object_list' : data
     }
 
     return render(request,'posts/post_list.html',context)
 
 
-def post_details(request,post_id):
-    data = Post.objects.get(id=post_id)   #db : all posts --> list [1,2]
+def post_details(request,pk):
+    data = Post.objects.get(id=pk)   #db : all posts --> list [1,2]
 
     context = {
-        'ali' : data
+        'post' : data
     }
 
-    return render(request,'posts/post_details.html',context)
+    return render(request,'posts/post_detail.html',context)
 
 def create_post(request):
     form = PostForm()
@@ -36,7 +36,7 @@ def create_post(request):
     else :
         form = PostForm()
 
-    return render(request,'posts/new.html',{'form' : form })
+    return render(request,'posts/post_form.html',{'form' : form })
 
 
    
@@ -60,38 +60,6 @@ def delete_post(request,pk):
     post = Post.objects.get(id=pk)
     post.delete()
     return redirect('/posts/')
-'''
-def post_list (request):
-    data = Post.objects.all()                                   : query
-    context = {'karim' : data}                                  : context
-    return render(request,'posts/post_list.html',context)       : template
-'''
-
-from django.views.generic import ListView , DetailView , CreateView , UpdateView , DeleteView
-
-class postlist(ListView):                   #context : model_list , object_list
-    model = Post                            #temolate model_action : post_list
-
-
-class postdetail(DetailView):
-    model = Post
-
-
-class AddPost(CreateView) :
-    model = Post
-    fields = '__all__'
-    success_url = '/posts/'
-
-class EditPost(UpdateView) :
-    model = Post
-    fields = '__all__'
-    success_url = '/posts/'
-    template_name = 'posts/edit.html'
-
-class DeletePost(DeleteView):
-    model = Post
-    success_url = '/posts/'
-
 
 
     
