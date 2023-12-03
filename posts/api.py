@@ -12,8 +12,20 @@ def post_list_api(request):
 
 
 
-@api_view(['GET'])
+@api_view(['GET','DELETE','PUT'])
 def post_detail_api(request,id):
     post = Post.objects.get(id = id)
     data = PostSerializer(post).data
     return Response({'data':data})
+
+
+from rest_framework import generics
+
+
+class PostListApi(generics.ListAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+class PostDetailApi(generics.RetrieveAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
