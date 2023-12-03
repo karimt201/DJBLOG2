@@ -19,7 +19,7 @@ from django.urls import path , include
 from django.conf import settings
 from django.conf.urls.static import static
 from posts.views import post_details , post_list,  create_post , edit_post , delete_post
-from posts.api import post_list_api
+from posts.api import post_list_api , post_detail_api
 
 
 urlpatterns = [
@@ -33,6 +33,8 @@ urlpatterns = [
 
 
     path('posts/api' , post_list_api) , 
+    path('posts/api/<int:id>' , post_detail_api) , 
+
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
