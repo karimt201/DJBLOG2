@@ -22,10 +22,10 @@ def post_detail_api(request,id):
 from rest_framework import generics
 
 
-class PostListApi(generics.ListAPIView):
+class PostListApi(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
-class PostDetailApi(generics.RetrieveAPIView):
+class PostDetailApi(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
