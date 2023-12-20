@@ -37,13 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'posts',
     "taggit",
     'django_summernote',
     "django_bootstrap5",
     'rest_framework',
     'drf_yasg',
     'django_filters',
+    'crispy_forms',
+    "crispy_bootstrap4",
+
+    'posts',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +146,10 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+LOGIN_REDIRECT_URL ='home'
+
+LOGIN_URL ='login'
+

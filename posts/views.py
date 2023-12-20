@@ -12,7 +12,7 @@ def post_list (request):
         'object_list' : data
     }
 
-    return render(request,'posts/post_list.html',context)
+    return render(request,'posts/home.html',context)
 
 
 def post_details(request,pk):

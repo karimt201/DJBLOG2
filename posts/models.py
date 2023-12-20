@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from taggit.managers import TaggableManager
 from django.contrib.auth.models import User
+from django.utils.text import slugify
+
 
 '''
         1 : html widget
@@ -44,7 +46,11 @@ class Post(models.Model):
     tags = TaggableManager()
     image = models.ImageField(upload_to='post')
     category = models.ForeignKey(category,related_name='post_category',on_delete=models.SET_NULL,null=True)
+    slug = models.SlugField(blank=True,null=True,unique=True)
 
+    def save(self, *args , **kwargs) : 
+        self.slug = slugify(self.title)
+        super(Post,self).save(*args , **kwargs) 
 
 
 

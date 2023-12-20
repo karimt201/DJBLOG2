@@ -14,6 +14,8 @@ class postlist(ListView):                   #context : model_list , object_list
 
 class postdetail(DetailView):
     model = Post
+    template_name = 'posts/post_detail.html'
+
 
 
 class AddPost(CreateView) :
