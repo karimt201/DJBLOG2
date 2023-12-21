@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from posts.views import post_details , post_list,  create_post , edit_post , delete_post
-from posts.views2 import postdetail 
+from posts.views2 import postdetail , postlist , AddPost , EditPost , DeletePost
 from posts.api import post_list_api , post_detail_api , PostListApi , PostDetailApi
 from users.views import register , profile
 
@@ -47,11 +47,11 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('posts/', post_list,name='home'),
-    path('posts/new',create_post) ,
-    path('posts/<slug:slug>',postdetail.as_view()),
-    path('posts/<int:pk>/edit',edit_post),
-    path('posts/<int:pk>/delete',delete_post),
+    path('posts/', postlist.as_view(),name='home'),
+    path('posts/new/', AddPost.as_view(),name='create_post') ,
+    path('posts/<int:pk>/',postdetail.as_view(),name='post_detail'),
+    path('posts/<int:pk>/edit/',EditPost.as_view(),name='Edit_post'),
+    path('posts/<int:pk>/delete/',DeletePost.as_view(),name='Delete_post'),
     path('summernote/', include('django_summernote.urls')),
     path('register/', register,name='register'),
     path('profile/', profile,name='profile'),

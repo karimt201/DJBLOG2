@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView , DetailView , CreateView , UpdateView , DeleteView
 from .models import Post
 
@@ -10,26 +11,39 @@ def post_list (request):
 
 class postlist(ListView):                   #context : model_list , object_list
     model = Post                            #temolate model_action : post_list
+    template_name='posts/home.html'
+    context_object_name = 'posts'
 
 
 class postdetail(DetailView):
     model = Post
-    template_name = 'posts/post_detail.html'
+    template_name = 'posts/post_detail2.html'
+    
 
 
 
-class AddPost(CreateView) :
+class AddPost(LoginRequiredMixin,CreateView) :
     model = Post
-    fields = '__all__'
+    template_name='posts/post_create.html'
+    fields = ['title','content']
     success_url = '/posts/'
 
-class EditPost(UpdateView) :
-    model = Post
-    fields = '__all__'
-    success_url = '/posts/'
-    template_name = 'posts/edit.html'
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
-class DeletePost(DeleteView):
+
+class EditPost(LoginRequiredMixin,UpdateView) :
+    model = Post
+    template_name='posts/post_create.html'
+    fields = ['title','content']
+    success_url = '/posts/'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class DeletePost(LoginRequiredMixin,DeleteView):
     model = Post
     success_url = '/posts/'
 
